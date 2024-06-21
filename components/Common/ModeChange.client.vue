@@ -43,47 +43,42 @@ const isDarkMode = ref(false);
 const toggleTheme = () => {
   isDarkMode.value = !isDarkMode.value;
   applyTheme(isDarkMode.value);
-  if (process?.client) {
-    localStorage.setItem("theme", isDarkMode.value ? "dark" : "light");
-  }
+
+  localStorage.setItem("theme", isDarkMode.value ? "dark" : "light");
 };
 
 const applyTheme = (isDark) => {
-  if (process?.client) {
-    if (isDark) {
-      document.querySelector("html").classList.remove("light-mode");
-      document.querySelector("html").classList.add("dark-mode");
-    } else {
-      document.querySelector("html").classList.remove("dark-mode");
-      document.querySelector("html").classList.add("light-mode");
-    }
+  if (isDark) {
+    document.querySelector("html").classList.remove("light-mode");
+    document.querySelector("html").classList.add("dark-mode");
+  } else {
+    document.querySelector("html").classList.remove("dark-mode");
+    document.querySelector("html").classList.add("light-mode");
   }
 };
 
 onMounted(() => {
-  if (process?.client) {
-    // Check the saved theme preference
-    const userPreference = localStorage.getItem("theme");
-    if (userPreference) {
-      isDarkMode.value = userPreference === "dark";
-      applyTheme(isDarkMode.value);
-    } else {
-      // Apply system preference if no user preference is set
-      isDarkMode.value = window.matchMedia(
-        "(prefers-color-scheme: dark)"
-      ).matches;
-      applyTheme(isDarkMode.value);
-    }
-
-    // Listen for changes in system preference
-    window
-      .matchMedia("(prefers-color-scheme: dark)")
-      .addEventListener("change", (e) => {
-        if (!localStorage.getItem("theme")) {
-          isDarkMode.value = e.matches;
-          applyTheme(isDarkMode.value);
-        }
-      });
+  // Check the saved theme preference
+  const userPreference = localStorage.getItem("theme");
+  if (userPreference) {
+    isDarkMode.value = userPreference === "dark";
+    applyTheme(isDarkMode.value);
+  } else {
+    // Apply system preference if no user preference is set
+    isDarkMode.value = window.matchMedia(
+      "(prefers-color-scheme: dark)"
+    ).matches;
+    applyTheme(isDarkMode.value);
   }
+
+  // Listen for changes in system preference
+  window
+    .matchMedia("(prefers-color-scheme: dark)")
+    .addEventListener("change", (e) => {
+      if (!localStorage.getItem("theme")) {
+        isDarkMode.value = e.matches;
+        applyTheme(isDarkMode.value);
+      }
+    });
 });
 </script>

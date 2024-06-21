@@ -10,7 +10,7 @@
       v-bind="$attrs"
       :data-src="src"
       :alt="alt"
-      src="/public/assets/images/placeholder/no-image.svg"
+      src="/assets/images/placeholder/no-image.svg"
       loading="lazy"
       ref="imageEl"
     />
