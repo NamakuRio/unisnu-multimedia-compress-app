@@ -1,0 +1,137 @@
+/** Light Mode **/
+:root {
+  /** Primary **/
+  --color-primary-1: 251, 253, 255;
+  --color-primary-2: 247, 249, 255;
+  --color-primary-3: 236, 241, 255;
+  --color-primary-4: 225, 233, 254;
+  --color-primary-5: 214, 223, 251;
+  --color-primary-6: 201, 212, 247;
+  --color-primary-7: 183, 197, 240;
+  --color-primary-8: 156, 174, 231;
+  --color-primary-9: 99, 116, 174;
+  --color-primary-10: 87, 103, 160;
+  --color-primary-11: 84, 100, 157;
+  --color-primary-12: 37, 45, 73;
+
+  --color-primary-a1: 0, 128, 255, 0.04;
+  --color-primary-a2: 0, 64, 255, 0.08;
+  --color-primary-a3: 0, 68, 255, 0.13;
+  --color-primary-a4: 0, 68, 247, 0.2;
+  --color-primary-a5: 0, 56, 231, 0.29;
+  --color-primary-a6: 0, 52, 218, 0.36;
+  --color-primary-a7: 0, 50, 202, 0.48;
+  --color-primary-a8: 0, 47, 194, 0.63;
+  --color-primary-a9: 0, 28, 123, 0.61;
+  --color-primary-a10: 0, 25, 111, 0.66;
+  --color-primary-a11: 0, 24, 109, 0.67;
+  --color-primary-a12: 0, 9, 42, 0.85;
+
+  --color-primary-contrast: 255, 255, 255;
+  --color-primary-surface: 245, 248, 255, 0.8;
+  --color-primary-indicator: 99, 116, 174;
+  --color-primary-track: 99, 116, 174;
+
+  /** Gray **/
+  --color-gray-1: 252, 252, 253;
+  --color-gray-2: 249, 249, 251;
+  --color-gray-3: 239, 240, 243;
+  --color-gray-4: 231, 232, 236;
+  --color-gray-5: 224, 225, 230;
+  --color-gray-6: 216, 217, 224;
+  --color-gray-7: 205, 206, 215;
+  --color-gray-8: 185, 187, 198;
+  --color-gray-9: 139, 141, 152;
+  --color-gray-10: 128, 130, 141;
+  --color-gray-11: 98, 99, 108;
+  --color-gray-12: 30, 31, 36;
+
+  --color-gray-a1: 0, 0, 85, 0.03;
+  --color-gray-a2: 0, 0, 85, 0.06;
+  --color-gray-a3: 0, 16, 64, 0.1;
+  --color-gray-a4: 0, 11, 54, 0.15;
+  --color-gray-a5: 0, 9, 50, 0.19;
+  --color-gray-a6: 0, 7, 53, 0.24;
+  --color-gray-a7: 0, 6, 51, 0.3;
+  --color-gray-a8: 0, 8, 48, 0.45;
+  --color-gray-a9: 0, 5, 29, 0.61;
+  --color-gray-a10: 0, 5, 27, 0.66;
+  --color-gray-a11: 0, 2, 17, 0.73;
+  --color-gray-a12: 0, 1, 7, 0.88;
+
+  --color-gray-contrast: 255, 255, 255;
+  --color-gray-surface: 255, 255, 255, 0.8;
+  --color-gray-indicator: 139, 141, 152;
+  --color-gray-track: 139, 141, 152;
+
+  --color-foreground: 255, 255, 255;
+}
+
+/** Dark Mode **/
+:root.dark-mode {
+  /** Primary **/
+  --color-primary-1: 14, 17, 25;
+  --color-primary-2: 21, 24, 35;
+  --color-primary-3: 31, 37, 61;
+  --color-primary-4: 39, 48, 82;
+  --color-primary-5: 50, 61, 99;
+  --color-primary-6: 63, 75, 118;
+  --color-primary-7: 77, 91, 140;
+  --color-primary-8: 93, 110, 168;
+  --color-primary-9: 99, 116, 174;
+  --color-primary-10: 87, 103, 160;
+  --color-primary-11: 164, 181, 238;
+  --color-primary-12: 219, 228, 255;
+
+  --color-primary-a1: 0, 18, 244, 0.09;
+  --color-primary-a2: 68, 107, 247, 0.14;
+  --color-primary-a3: 92, 124, 251, 0.3;
+  --color-primary-a4: 98, 130, 254, 0.46;
+  --color-primary-a5: 113, 145, 255, 0.58;
+  --color-primary-a6: 125, 153, 253, 0.68;
+  --color-primary-a7: 133, 160, 255, 0.78;
+  --color-primary-a8: 137, 164, 255, 0.85;
+  --color-primary-a9: 141, 166, 254, 0.85;
+  --color-primary-a10: 133, 159, 254, 0.81;
+  --color-primary-a11: 175, 194, 255, 0.93;
+  --color-primary-a12: 219, 228, 255;
+
+  --color-primary-contrast: 255, 255, 255;
+  --color-primary-surface: 25, 31, 53, 0.5;
+  --color-primary-indicator: 99, 116, 174;
+  --color-primary-track: 99, 116, 174;
+
+  /** Gray **/
+  --color-gray-1: 17, 17, 19;
+  --color-gray-2: 25, 25, 27;
+  --color-gray-3: 34, 35, 37;
+  --color-gray-4: 41, 42, 46;
+  --color-gray-5: 48, 49, 54;
+  --color-gray-6: 57, 58, 64;
+  --color-gray-7: 70, 72, 79;
+  --color-gray-8: 95, 96, 106;
+  --color-gray-9: 108, 110, 121;
+  --color-gray-10: 121, 123, 134;
+  --color-gray-11: 178, 179, 189;
+  --color-gray-12: 238, 238, 240;
+
+  --color-gray-a1: 17, 17, 187, 0.03;
+  --color-gray-a2: 203, 203, 249, 0.07;
+  --color-gray-a3: 214, 226, 249, 0.09;
+  --color-gray-a4: 209, 217, 249, 0.13;
+  --color-gray-a5: 215, 221, 253, 0.16;
+  --color-gray-a6: 217, 222, 252, 0.2;
+  --color-gray-a7: 218, 226, 253, 0.27;
+  --color-gray-a8: 224, 227, 253, 0.38;
+  --color-gray-a9: 224, 228, 253, 0.44;
+  --color-gray-a10: 227, 231, 253, 0.49;
+  --color-gray-a11: 239, 240, 254, 0.73;
+  --color-gray-a12: 253, 253, 255, 0.94;
+
+  --color-gray-contrast: 255, 255, 255;
+  --color-gray-surface: 0, 0, 0, 0.05;
+  --color-gray-indicator: 108, 110, 121;
+  --color-gray-track: 108, 110, 121;
+
+  --color-foreground: 17, 17, 17;
+}

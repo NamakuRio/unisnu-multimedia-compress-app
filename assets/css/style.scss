@@ -1,0 +1,16 @@
+// Default Theme
+//----------------------------------
+
+@import "themes.scss";
+
+html {
+  height: -webkit-fill-available;
+}
+
+html.dark-mode {
+  color-scheme: dark;
+}
+
+body {
+  @apply text-base font-nunito bg-gray-3 transition-all duration-150 selection:bg-primary-4 selection:text-primary-11 scroll-smooth;
+}
