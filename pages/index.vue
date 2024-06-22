@@ -1,5 +1,6 @@
 <template>
   <div class="container mx-auto space-y-10">
+    <span v-html="outputError"> </span>
     <div class="flex flex-col gap-4 lg:flex-row">
       <!-- Card Form -->
       <BaseCard class="flex-1 p-6">
@@ -210,6 +211,7 @@
                   :key="index"
                   class="relative p-3 transition-all duration-200 border rounded-lg border-gray-6 bg-gray-1 hover:border-dashed hover:border-primary-4 group"
                 >
+                  {{ file }}
                   <div>
                     <div
                       class="flex items-center justify-center w-full overflow-hidden h-52"
@@ -395,38 +397,74 @@ const removeImage = (index: number) => {
   }
 };
 
+const outputError = ref("");
 const handleSubmit = async () => {
-  compressedFiles.value = [];
-  let tempCompressedFiles: CompressedFile[] = [];
-  isLoading.value = true;
-  for (let file of selectedFiles.value) {
-    try {
-      const compressedFile: SelectedFile = await nuxtApp.$compressImage(
-        file,
-        compressionQuality.value
-      );
+  try {
+    isLoading.value = true;
+    const formData = new FormData();
 
-      let output: CompressedFile = {
-        before: file,
-        after: compressedFile,
-      };
-      tempCompressedFiles.push(output);
-    } catch (error) {
-      console.error("Error compressing image:", error);
-    }
+    selectedFiles.value.forEach((file, index) => {
+      formData.append(`files[${index}]`, file?.file, file?.name);
+    });
+
+    const response = await $fetch("/api/v1/images/compress", {
+      method: "POST",
+      body: formData,
+      headers: {
+        accept: "application/json",
+      },
+    });
+    console.log(response);
+    const blob = new Blob([response.results[0].file]);
+    console.log(blob);
+    // Buat URL objek dari Blob
+    const blobUrl = URL.createObjectURL(blob);
+    console.log(blobUrl);
+
+    compressedFiles.value = [
+      {
+        after: {
+          preview: blobUrl,
+        },
+      },
+    ];
+
+    isLoading.value = false;
+  } catch (error) {
+    isLoading.value = false;
+    outputError.value = error?.response?._data?.stack;
+    console.error("Error compressing image:", error);
   }
-  compressedFiles.value = tempCompressedFiles;
-  selectedFiles.value = [];
-  isLoading.value = false;
+  // compressedFiles.value = [];
+  // let tempCompressedFiles: CompressedFile[] = [];
+  // isLoading.value = true;
+  // for (let file of selectedFiles.value) {
+  //   try {
+  //     const compressedFile: SelectedFile = await nuxtApp.$compressImage(
+  //       file,
+  //       compressionQuality.value
+  //     );
 
-  // Scroll to the output card after compression is complete
+  //     let output: CompressedFile = {
+  //       before: file,
+  //       after: compressedFile,
+  //     };
+  //     tempCompressedFiles.push(output);
+  //   } catch (error) {
+  //     console.error("Error compressing image:", error);
+  //   }
+  // }
+  // compressedFiles.value = tempCompressedFiles;
+  // selectedFiles.value = [];
+  // isLoading.value = false;
+
+  // // Scroll to the output card after compression is complete
   await nextTick();
   outputCardElement.value?.$el?.scrollIntoView({
     behavior: "smooth",
     block: "start",
     inline: "nearest",
   });
-  // window.scrollBy({ top: window.innerHeight, behavior: "smooth" });
 };
 
 const handleDownload = (file: CompressedFile) => {

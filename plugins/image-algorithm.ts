@@ -81,33 +81,6 @@ export default defineNuxtPlugin(() => {
             };
 
             resolve(output);
-            // Mengonversi data URL menjadi Blob
-            // fetch(dataURL)
-            //   .then((res) => res.blob())
-            //   .then((blob) => {
-            //     const now = new Date();
-            //     const lastModified = Math.floor(now.getTime() / 1000);
-
-            //     // Membuat File baru dari Blob
-            //     const newFile = new File([blob], file.name, {
-            //       type: file.type,
-            //       lastModified: lastModified * 1000,
-            //     });
-
-            //     let output: SelectedFile = {
-            //       file: newFile,
-            //       preview: dataURL,
-            //       name: newFile.name,
-            //       size: blob.size,
-            //       type: file.type,
-            //       lastModified: lastModified * 1000,
-            //     };
-
-            //     resolve(output);
-            //   })
-            //   .catch((error) => {
-            //     reject(error);
-            //   });
           };
 
           img.onerror = (error) => {
