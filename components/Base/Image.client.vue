@@ -35,7 +35,7 @@ const props = defineProps({
 /** Lazy load */
 const imageEl = ref(null);
 function setLazyClass() {
-  imageEl?.value?.classList?.add("lazy");
+  // imageEl?.value?.classList?.add("lazy");
 }
 
 watch(
