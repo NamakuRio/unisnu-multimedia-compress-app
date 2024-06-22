@@ -38,10 +38,10 @@ function setLazyClass() {
   imageEl?.value?.classList?.add("lazy");
 }
 
-watch(
-  () => props.src,
-  () => setLazyClass()
-);
+// watch(
+//   () => props.src,
+//   () => setLazyClass()
+// );
 
 onMounted(() => {
   setLazyClass();
