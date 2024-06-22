@@ -13,7 +13,7 @@
         leave-from-class="rotate-0 opacity-100"
         leave-to-class="rotate-45 opacity-0"
       >
-        <LazyBaseIcon
+        <BaseIcon
           name="heroicons-solid:sun"
           class="absolute w-6 h-6 text-yellow-500 transition duration-200 group-hover/mode-change:text-yellow-600 group-hover/mode-change:scale-110"
           v-if="!isDarkMode"
@@ -28,7 +28,7 @@
         leave-from-class="rotate-0 opacity-100"
         leave-to-class="rotate-45 opacity-0"
       >
-        <LazyBaseIcon
+        <BaseIcon
           name="heroicons-solid:moon"
           class="absolute w-6 h-6 transition duration-200 text-slate-300 group-hover/mode-change:text-slate-400 group-hover/mode-change:scale-110"
           v-if="isDarkMode"

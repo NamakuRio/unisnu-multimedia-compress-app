@@ -1,5 +1,5 @@
 <template>
-  <Icon :name="name" :color="color" v-bind="$attrs" />
+  <Icon :name="name" :color="color" :mode="mode" v-bind="$attrs" />
 </template>
 <script setup>
 const props = defineProps({
@@ -10,7 +10,9 @@ const props = defineProps({
   color: {
     type: String,
   },
+  mode: {
+    type: String,
+    default: "svg",
+  },
 });
-
-const isLoaded = ref(false);
 </script>

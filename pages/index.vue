@@ -39,7 +39,7 @@
                   v-if="!selectedFiles.length"
                   class="flex flex-col items-center"
                 >
-                  <LazyBaseIcon
+                  <BaseIcon
                     name="material-symbols:add-photo-alternate-outline-rounded"
                     size="4rem"
                     class="text-primary-10"
@@ -66,7 +66,7 @@
                         type="button"
                         class="absolute z-[1] flex items-center justify-center gap-1 p-1 overflow-hidden transition-all duration-150 border rounded-full w-[26px] hover:w-[84px] hover:px-2 shadow whitespace-nowrap text-primary-surface bg-gray-1 border-gray-5 -top-3 -right-3 group/remove"
                       >
-                        <LazyBaseIcon
+                        <BaseIcon
                           name="material-symbols:close-rounded"
                           class="w-4 h-4 transition duration-200 group-hover/remove:rotate-90"
                         />
@@ -103,7 +103,7 @@
                     <div
                       class="relative flex flex-col items-center h-[302px] justify-center gap-4 p-3 transition duration-200 bg-opacity-75 border-2 border-dashed rounded-lg border-primary-8 hover:border-primary-10 bg-primary-3 group/newfile hover:shadow-sm"
                     >
-                      <LazyBaseIcon
+                      <BaseIcon
                         name="material-symbols:add-photo-alternate-outline-rounded"
                         size="3rem"
                         class="text-primary-10"
@@ -115,15 +115,15 @@
                       </p>
 
                       <!-- STAR  ANIMATION -->
-                      <LazyBaseIcon
+                      <BaseIcon
                         name="mdi:star-four-points-outline"
                         class="absolute hidden w-2 h-2 text-primary-10 top-2 left-2 animate-ping group-hover/newfile:block"
                       />
-                      <LazyBaseIcon
+                      <BaseIcon
                         name="mdi:star-four-points-outline"
                         class="absolute hidden w-2 h-2 text-primary-10 bottom-4 left-10 animate-ping group-hover/newfile:block"
                       />
-                      <LazyBaseIcon
+                      <BaseIcon
                         name="mdi:star-four-points-outline"
                         class="absolute hidden w-4 h-4 right-2 text-primary-10 bottom-20 animate-ping group-hover/newfile:block"
                       />
@@ -137,7 +137,7 @@
                   v-if="isDragging"
                   class="absolute inset-0 flex flex-col items-center justify-center gap-2 overflow-hidden bg-opacity-75 pointer-events-none bg-primary-2"
                 >
-                  <LazyBaseIcon
+                  <BaseIcon
                     name="hugeicons:image-download-02"
                     size="4rem"
                     class="text-primary-10 animate-bounce"
@@ -177,7 +177,7 @@
               >
                 Compress Images
                 <template #right="slotProps">
-                  <LazyBaseIcon
+                  <BaseIcon
                     name="formkit:submit"
                     :class="[
                       slotProps.class,
@@ -233,7 +233,7 @@
                               {{ (file?.before?.size / 1024).toFixed(2) }} KB
                             </span>
                           </span>
-                          <LazyBaseIcon
+                          <BaseIcon
                             name="material-symbols:keyboard-double-arrow-right"
                             class="text-gray-11"
                           />
@@ -246,9 +246,7 @@
                         <div
                           class="flex items-center justify-center gap-1 text-sm text-green-600 dark:text-green-500"
                         >
-                          <LazyBaseIcon
-                            name="material-symbols:arrow-cool-down"
-                          />
+                          <BaseIcon name="material-symbols:arrow-cool-down" />
                           <p>
                             {{
                               file?.before && file?.after
@@ -275,7 +273,7 @@
                     >
                       Download
                       <template #right="slotProps">
-                        <LazyBaseIcon
+                        <BaseIcon
                           name="material-symbols:download-rounded"
                           :class="slotProps.class"
                         />
@@ -309,7 +307,7 @@
           >
             Download All
             <template #right="slotProps">
-              <LazyBaseIcon
+              <BaseIcon
                 name="material-symbols:download-rounded"
                 :class="slotProps.class"
               />
@@ -323,7 +321,7 @@
           >
             Clear
             <template #right="slotProps">
-              <LazyBaseIcon name="pajamas:clear-all" :class="slotProps.class" />
+              <BaseIcon name="pajamas:clear-all" :class="slotProps.class" />
             </template>
           </BaseButton>
         </div>
