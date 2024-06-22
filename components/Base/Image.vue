@@ -6,7 +6,7 @@
     ]"
   >
     <img
-      :class="[$attrs.class, 'lazy']"
+      :class="[$attrs.class]"
       v-bind="$attrs"
       :data-src="src"
       :alt="alt"

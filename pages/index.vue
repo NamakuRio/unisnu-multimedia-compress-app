@@ -79,7 +79,7 @@
                       <div
                         class="flex items-center justify-center w-full overflow-hidden h-52"
                       >
-                        <LazyBaseImage
+                        <BaseImage
                           :src="file.preview"
                           alt="Selected"
                           class="object-contain h-auto max-w-full max-h-full rounded-lg"
@@ -214,7 +214,7 @@
                     <div
                       class="flex items-center justify-center w-full overflow-hidden h-52"
                     >
-                      <LazyBaseImage
+                      <BaseImage
                         :src="file?.after?.preview"
                         alt="Compressed"
                         class="object-contain h-auto max-w-full max-h-full rounded-lg"
@@ -266,7 +266,7 @@
                   <div
                     class="absolute inset-0 items-center justify-center hidden rounded-lg backdrop-blur-sm bg-opacity-30 bg-primary-3 group-hover:flex"
                   >
-                    <LazyBaseButton
+                    <BaseButton
                       size="sm"
                       variant="soft"
                       @click="handleDownload(file)"
@@ -278,7 +278,7 @@
                           :class="slotProps.class"
                         />
                       </template>
-                    </LazyBaseButton>
+                    </BaseButton>
                   </div>
                   <!-- OVERLAY HOVER -->
                 </div>

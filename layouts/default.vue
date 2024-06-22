@@ -1,6 +1,6 @@
 <template>
   <div id="root">
-    <!-- <AppNavbar /> -->
+    <AppNavbar />
 
     <main class="p-4 sm:p-8">
       <slot />
