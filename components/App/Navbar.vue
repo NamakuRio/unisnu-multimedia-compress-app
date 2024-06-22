@@ -11,9 +11,9 @@
           />
         </NuxtLink>
       </div>
-      <div>
+      <!-- <div>
         <LazyCommonModeChange />
-      </div>
+      </div> -->
     </div>
   </nav>
 </template>
