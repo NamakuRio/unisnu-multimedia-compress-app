@@ -95,12 +95,11 @@ export default defineNuxtPlugin(() => {
         const zip = new JSZip();
 
         files.forEach((file, index) => {
-          const fileName = `compressed-${file?.after?.name}`;
-          zip.file(fileName, file?.after?.file);
+          zip.file(file?.after?.name, file?.after?.file);
         });
 
         zip.generateAsync({ type: "blob" }).then((content) => {
-          const zipFileName = "compressed-images.zip";
+          const zipFileName = `images-compressed-${Date.now()}.zip`;
           FileSaver.saveAs(content, zipFileName);
         });
       },

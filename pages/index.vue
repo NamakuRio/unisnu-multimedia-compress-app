@@ -1,6 +1,5 @@
 <template>
   <div class="container mx-auto space-y-10">
-    <span v-html="outputError"> </span>
     <div class="flex flex-col gap-4 lg:flex-row">
       <!-- Card Form -->
       <BaseCard class="flex-1 p-6">
@@ -38,14 +37,14 @@
                 <!-- BELUM MEMILIH FILE -->
                 <div
                   v-if="!selectedFiles.length"
-                  class="flex flex-col items-center"
+                  class="flex flex-col items-center gap-2"
                 >
                   <BaseIcon
                     name="material-symbols:add-photo-alternate-outline-rounded"
                     size="4rem"
                     class="text-primary-10"
                   />
-                  <p class="mt-2 text-sm text-gray-10">
+                  <p class="text-sm text-gray-10">
                     Drag files here or
                     <span class="text-primary-10">browse</span> to choose files
                   </p>
@@ -239,7 +238,13 @@
                             class="text-gray-11"
                           />
                           <span
-                            class="text-sm text-green-600 dark:text-green-500"
+                            :class="[
+                              'text-sm text-green-600 dark:text-green-500',
+                              {
+                                'text-red-600 dark:text-red-500':
+                                  file?.before?.size < file?.after?.size,
+                              },
+                            ]"
                           >
                             {{ (file?.after?.size / 1024).toFixed(2) }} KB
                           </span>
@@ -247,14 +252,29 @@
                         <div
                           class="flex items-center justify-center gap-1 text-sm text-green-600 dark:text-green-500"
                         >
-                          <BaseIcon name="material-symbols:arrow-cool-down" />
-                          <p>
+                          <BaseIcon
+                            name="material-symbols:arrow-cool-down"
+                            :class="[
+                              {
+                                'rotate-180 text-red-600 dark:text-red-500':
+                                  file?.before?.size < file?.after?.size,
+                              },
+                            ]"
+                          />
+                          <p
+                            :class="[
+                              {
+                                'text-red-600 dark:text-red-500':
+                                  file?.before?.size < file?.after?.size,
+                              },
+                            ]"
+                          >
                             {{
                               file?.before && file?.after
-                                ? (
+                                ? Math.abs(
                                     ((file.before.size - file.after.size) /
                                       file.before.size) *
-                                    100
+                                      100
                                   ).toFixed(2)
                                 : "0.00"
                             }}%
@@ -287,9 +307,16 @@
             </template>
             <template v-else>
               <div class="py-10">
-                <p class="text-sm text-gray-10">
-                  No images have been compressed yet.
-                </p>
+                <div class="flex flex-col items-center gap-2">
+                  <BaseIcon
+                    name="material-symbols:image-not-supported-outline-rounded"
+                    size="4rem"
+                    class="text-primary-10"
+                  />
+                  <p class="text-sm text-gray-10">
+                    No images have been compressed yet.
+                  </p>
+                </div>
               </div>
             </template>
           </div>
@@ -333,6 +360,7 @@
 </template>
 <script setup lang="ts">
 import type { SelectedFile, CompressedFile } from "~/types";
+import axios from "axios";
 
 const nuxtApp = useNuxtApp();
 
@@ -411,7 +439,28 @@ const handleSubmit = async () => {
     });
     formData.append("quality", compressionQuality.value.toString());
 
-    const response = await $fetch("/api/v1/images/compress", {
+    /** AXIOS */
+    // const config: any = {
+    //   headers: {
+    //     accept: "application/json",
+    //     "Content-Type": "multipart/form-data",
+    //   },
+    //   onUploadProgress: (progressEvent: any) => {
+    //     console.log(progressEvent);
+    //     const percentCompleted = Math.round(
+    //       (progressEvent.loaded * 100) / progressEvent.total
+    //     );
+    //     console.log(`Upload progress: ${percentCompleted}%`);
+    //   },
+    // };
+
+    // const response = await axios.post(
+    //   "/api/v1/images/compress",
+    //   formData,
+    //   config
+    // );
+
+    const response: any = await $fetch("/api/v1/images/compress", {
       method: "POST",
       body: formData,
       headers: {
@@ -494,9 +543,7 @@ const handleSubmit = async () => {
 
 const handleDownload = (file: CompressedFile) => {
   if (!isLoading.value) {
-    const fileName = `compressed-${file?.after?.name}`;
-
-    nuxtApp.$downloadImage(file?.after?.file, fileName);
+    nuxtApp.$downloadImage(file?.after?.file, file?.after?.name);
   }
 };
 
@@ -504,9 +551,8 @@ const handleDownloadAll = () => {
   if (!isLoading.value) {
     if (compressedFiles?.value?.length === 1) {
       const file = compressedFiles?.value[0];
-      const fileName = `compressed-${file?.after?.name}`;
 
-      nuxtApp.$downloadImage(file?.after?.file, fileName);
+      nuxtApp.$downloadImage(file?.after?.file, file?.after?.name);
     } else {
       nuxtApp.$downloadZip(compressedFiles.value);
     }
