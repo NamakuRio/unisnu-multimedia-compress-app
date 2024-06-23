@@ -363,17 +363,21 @@ const triggerFileInput = () => {
 };
 
 const handleSelectedFile = (event: Event) => {
-  const target = event.target as HTMLInputElement;
-  const files = Array.from(target.files || []);
-  handleAppendFile(files);
+  if (!isLoading.value) {
+    const target = event.target as HTMLInputElement;
+    const files = Array.from(target.files || []);
+    handleAppendFile(files);
+  }
 };
 
 /** HANDLE DRAGGING FILE OVER INPUT SPACE */
 const handleDrop = (event: DragEvent) => {
-  const files = Array.from(event.dataTransfer?.files || [])?.filter((file) =>
-    file.type.startsWith("image/")
-  );
-  handleAppendFile(files);
+  if (!isLoading.value) {
+    const files = Array.from(event.dataTransfer?.files || [])?.filter((file) =>
+      file.type.startsWith("image/")
+    );
+    handleAppendFile(files);
+  }
   isDragging.value = false;
 };
 
@@ -489,19 +493,23 @@ const handleSubmit = async () => {
 };
 
 const handleDownload = (file: CompressedFile) => {
-  const fileName = `compressed-${file?.after?.name}`;
-
-  nuxtApp.$downloadImage(file?.after?.file, fileName);
-};
-
-const handleDownloadAll = () => {
-  if (compressedFiles?.value?.length === 1) {
-    const file = compressedFiles?.value[0];
+  if (!isLoading.value) {
     const fileName = `compressed-${file?.after?.name}`;
 
     nuxtApp.$downloadImage(file?.after?.file, fileName);
-  } else {
-    nuxtApp.$downloadZip(compressedFiles.value);
+  }
+};
+
+const handleDownloadAll = () => {
+  if (!isLoading.value) {
+    if (compressedFiles?.value?.length === 1) {
+      const file = compressedFiles?.value[0];
+      const fileName = `compressed-${file?.after?.name}`;
+
+      nuxtApp.$downloadImage(file?.after?.file, fileName);
+    } else {
+      nuxtApp.$downloadZip(compressedFiles.value);
+    }
   }
 };
 
