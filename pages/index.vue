@@ -211,7 +211,6 @@
                   :key="index"
                   class="relative p-3 transition-all duration-200 border rounded-lg border-gray-6 bg-gray-1 hover:border-dashed hover:border-primary-4 group"
                 >
-                  {{ file }}
                   <div>
                     <div
                       class="flex items-center justify-center w-full overflow-hidden h-52"
@@ -339,7 +338,7 @@ const nuxtApp = useNuxtApp();
 
 const selectedFiles: Ref<SelectedFile[]> = ref([]);
 const compressedFiles: Ref<CompressedFile[]> = ref([]);
-const compressionQuality: Ref<number> = ref(1.0);
+const compressionQuality: Ref<number> = ref(0.5);
 const isDragging: Ref<Boolean> = ref(false);
 const fileInputElement: Ref<HTMLInputElement | null> = ref(null);
 const outputCardElement: Ref<HTMLDivElement | any | null> = ref(null);
@@ -406,6 +405,7 @@ const handleSubmit = async () => {
     selectedFiles.value.forEach((file, index) => {
       formData.append(`files[${index}]`, file?.file, file?.name);
     });
+    formData.append("quality", compressionQuality.value.toString());
 
     const response = await $fetch("/api/v1/images/compress", {
       method: "POST",
@@ -414,23 +414,44 @@ const handleSubmit = async () => {
         accept: "application/json",
       },
     });
-    console.log(response);
-    const blob = new Blob([response.results[0].file]);
-    console.log(blob);
-    // Buat URL objek dari Blob
-    const blobUrl = URL.createObjectURL(blob);
-    console.log(blobUrl);
 
-    compressedFiles.value = [
-      {
-        after: {
-          preview: blobUrl,
-        },
-      },
-    ];
+    compressedFiles.value = [];
+    let tempCompressedFiles: CompressedFile[] = [];
+    response?.results?.forEach((file: any, index: number) => {
+      const generateBase64 = `data:${selectedFiles.value[index].type};base64,${file?.fileBase64}`;
+      const generateBlob = nuxtApp.$b64ToBlob(
+        generateBase64,
+        selectedFiles.value[index].type
+      );
 
+      const newFile = new File([generateBlob], file.name, {
+        type: file.type,
+        lastModified: file?.lastModified,
+      });
+
+      const dataUrl = URL.createObjectURL(newFile);
+
+      const compressedFile: SelectedFile = {
+        file: newFile,
+        preview: dataUrl,
+        name: file?.name,
+        size: file?.size,
+        type: file?.type,
+        lastModified: file?.lastModified,
+      };
+
+      const output: CompressedFile = {
+        before: selectedFiles.value[index],
+        after: compressedFile,
+      };
+
+      tempCompressedFiles.push(output);
+    });
+
+    compressedFiles.value = tempCompressedFiles;
+    selectedFiles.value = [];
     isLoading.value = false;
-  } catch (error) {
+  } catch (error: any) {
     isLoading.value = false;
     outputError.value = error?.response?._data?.stack;
     console.error("Error compressing image:", error);
