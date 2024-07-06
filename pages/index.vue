@@ -2,7 +2,7 @@
   <div class="container mx-auto space-y-10">
     <div class="flex flex-col gap-4 lg:flex-row">
       <!-- Card Form -->
-      <BaseCard class="flex-1 p-6">
+      <LazyBaseCard class="flex-1 p-6">
         <!-- TITLE -->
         <p class="text-3xl font-bold text-center text-gray-12">
           Compress Image
@@ -39,7 +39,7 @@
                   v-if="!selectedFiles.length"
                   class="flex flex-col items-center gap-2"
                 >
-                  <BaseIcon
+                  <LazyBaseIcon
                     name="material-symbols:add-photo-alternate-outline-rounded"
                     size="4rem"
                     class="text-primary-10"
@@ -66,7 +66,7 @@
                         type="button"
                         class="absolute z-[1] flex items-center justify-center gap-1 p-1 overflow-hidden transition-all duration-150 border rounded-full w-[26px] hover:w-[84px] hover:px-2 shadow whitespace-nowrap text-primary-surface bg-gray-1 border-gray-5 -top-3 -right-3 group/remove"
                       >
-                        <BaseIcon
+                        <LazyBaseIcon
                           name="material-symbols:close-rounded"
                           class="w-4 h-4 transition duration-200 group-hover/remove:rotate-90"
                         />
@@ -103,7 +103,7 @@
                     <div
                       class="relative flex flex-col items-center h-[302px] justify-center gap-4 p-3 transition duration-200 bg-opacity-75 border-2 border-dashed rounded-lg border-primary-8 hover:border-primary-10 bg-primary-3 group/newfile hover:shadow-sm"
                     >
-                      <BaseIcon
+                      <LazyBaseIcon
                         name="material-symbols:add-photo-alternate-outline-rounded"
                         size="3rem"
                         class="text-primary-10"
@@ -115,15 +115,15 @@
                       </p>
 
                       <!-- STAR  ANIMATION -->
-                      <BaseIcon
+                      <LazyBaseIcon
                         name="mdi:star-four-points-outline"
                         class="absolute hidden w-2 h-2 text-primary-10 top-2 left-2 animate-ping group-hover/newfile:block"
                       />
-                      <BaseIcon
+                      <LazyBaseIcon
                         name="mdi:star-four-points-outline"
                         class="absolute hidden w-2 h-2 text-primary-10 bottom-4 left-10 animate-ping group-hover/newfile:block"
                       />
-                      <BaseIcon
+                      <LazyBaseIcon
                         name="mdi:star-four-points-outline"
                         class="absolute hidden w-4 h-4 right-2 text-primary-10 bottom-20 animate-ping group-hover/newfile:block"
                       />
@@ -137,7 +137,7 @@
                   v-if="isDragging"
                   class="absolute inset-0 flex flex-col items-center justify-center gap-2 overflow-hidden bg-opacity-75 pointer-events-none bg-primary-2"
                 >
-                  <BaseIcon
+                  <LazyBaseIcon
                     name="hugeicons:image-download-02"
                     size="4rem"
                     class="text-primary-10 animate-bounce"
@@ -177,7 +177,7 @@
               >
                 Compress Images
                 <template #right="slotProps">
-                  <BaseIcon
+                  <LazyBaseIcon
                     name="formkit:submit"
                     :class="[
                       slotProps.class,
@@ -190,11 +190,11 @@
           </form>
         </div>
         <!-- FORM -->
-      </BaseCard>
+      </LazyBaseCard>
       <!-- Card Form -->
 
       <!-- Card Output -->
-      <BaseCard class="flex-1 p-6" ref="outputCardElement">
+      <LazyBaseCard class="flex-1 p-6" ref="outputCardElement">
         <!-- TITLE -->
         <p class="text-3xl font-bold text-center text-gray-12">Output</p>
         <!-- TITLE -->
@@ -233,7 +233,7 @@
                               {{ (file?.before?.size / 1024).toFixed(2) }} KB
                             </span>
                           </span>
-                          <BaseIcon
+                          <LazyBaseIcon
                             name="material-symbols:keyboard-double-arrow-right"
                             class="text-gray-11"
                           />
@@ -252,7 +252,7 @@
                         <div
                           class="flex items-center justify-center gap-1 text-sm text-green-600 dark:text-green-500"
                         >
-                          <BaseIcon
+                          <LazyBaseIcon
                             name="material-symbols:arrow-cool-down"
                             :class="[
                               {
@@ -294,7 +294,7 @@
                     >
                       Download
                       <template #right="slotProps">
-                        <BaseIcon
+                        <LazyBaseIcon
                           name="material-symbols:download-rounded"
                           :class="slotProps.class"
                         />
@@ -308,7 +308,7 @@
             <template v-else>
               <div class="py-10">
                 <div class="flex flex-col items-center gap-2">
-                  <BaseIcon
+                  <LazyBaseIcon
                     name="material-symbols:image-not-supported-outline-rounded"
                     size="4rem"
                     class="text-primary-10"
@@ -335,7 +335,7 @@
           >
             Download All
             <template #right="slotProps">
-              <BaseIcon
+              <LazyBaseIcon
                 name="material-symbols:download-rounded"
                 :class="slotProps.class"
               />
@@ -349,18 +349,17 @@
           >
             Clear
             <template #right="slotProps">
-              <BaseIcon name="pajamas:clear-all" :class="slotProps.class" />
+              <LazyBaseIcon name="pajamas:clear-all" :class="slotProps.class" />
             </template>
           </BaseButton>
         </div>
-      </BaseCard>
+      </LazyBaseCard>
       <!-- Card Output -->
     </div>
   </div>
 </template>
 <script setup lang="ts">
 import type { SelectedFile, CompressedFile } from "~/types";
-import axios from "axios";
 
 const nuxtApp = useNuxtApp();
 
@@ -438,27 +437,6 @@ const handleSubmit = async () => {
       formData.append(`files[${index}]`, file?.file, file?.name);
     });
     formData.append("quality", compressionQuality.value.toString());
-
-    /** AXIOS */
-    // const config: any = {
-    //   headers: {
-    //     accept: "application/json",
-    //     "Content-Type": "multipart/form-data",
-    //   },
-    //   onUploadProgress: (progressEvent: any) => {
-    //     console.log(progressEvent);
-    //     const percentCompleted = Math.round(
-    //       (progressEvent.loaded * 100) / progressEvent.total
-    //     );
-    //     console.log(`Upload progress: ${percentCompleted}%`);
-    //   },
-    // };
-
-    // const response = await axios.post(
-    //   "/api/v1/images/compress",
-    //   formData,
-    //   config
-    // );
 
     const response: any = await $fetch("/api/v1/images/compress", {
       method: "POST",

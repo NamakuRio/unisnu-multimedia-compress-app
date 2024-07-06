@@ -1,6 +1,5 @@
 import sharp from "sharp";
 import { createResponse } from "~/server/response";
-import { randomText } from "~/utils/helpers";
 
 async function compressImage(file: File, quality: number = 0.5) {
   try {

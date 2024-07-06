@@ -12,7 +12,10 @@
     ]"
     v-bind="$attrs"
   >
-    <IconSpinner v-if="loading" :class="[iconLeftClass, iconVariantClass]" />
+    <LazyIconSpinner
+      v-if="loading"
+      :class="[iconLeftClass, iconVariantClass]"
+    />
 
     <slot v-else name="left" :class="iconLeftClass"></slot>
     <slot />

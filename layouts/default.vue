@@ -1,6 +1,6 @@
 <template>
   <div id="root">
-    <AppNavbar />
+    <LazyAppNavbar />
 
     <main class="p-4 sm:p-8">
       <slot />
