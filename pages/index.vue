@@ -569,7 +569,7 @@ useHead({
     {
       hid: "og:image",
       property: "og:image",
-      content: "/assets/images/favicon/icon-512-maskable.png",
+      content: "/assets/images/meta/home.png",
     },
     { hid: "og:url", property: "og:url", content: "/" },
     {
@@ -592,7 +592,7 @@ useHead({
     {
       hid: "twitter:image",
       property: "twitter:image",
-      content: "/assets/images/favicon/icon-512-maskable.png",
+      content: "/assets/images/meta/home.png",
     },
     {
       hid: "twitter:card",
